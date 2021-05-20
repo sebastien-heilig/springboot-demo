@@ -12,9 +12,9 @@ For each video, I will create a new branch and add a chapter in this README file
 
 ## Summary table
 
-| Branch name                                                                                                                             | Chapter            | Link              |
-| -----------                                                                                                                             | -------            | ----              |
-| [crud-mapstruct-rest-soap-repositories](https://github.com/sebastien-heilig/springboot-demo/tree/crud-mapstruct-rest-soap-repositories) | [Chapter 1](#c1)   | Not published yet |
+| Branch name                           | Chapter            | Link              |
+| -----------                           | -------            | ----              |
+| crud-mapstruct-rest-soap-repositories | [Chapter 1](#c1)   | Not published yet |
 
 
 ### <a name="c1"></a> Chapter 1: Branch "crud-mapstruct-rest-soap-repositories"
@@ -26,5 +26,5 @@ That branch contains a project that demonstrates:
 - Mapstruct: to map DTO <-> entity
 - REST: Expose some operations
 - SOAP: Expose equivalent to REST operations
-- AOP: Creation of a custom annotation
+- AOP: Creation of a custom anotation
 - Lombok
