@@ -22,6 +22,7 @@ For each video, I will create a new branch and add a chapter in this README file
 That branch contains a project that demonstrates: 
 - SpringBoot application
 - H2 Database: to persist entities
+- Spring repositories
 - Mapstruct: to map DTO <-> entity
 - REST: Expose some operations
 - SOAP: Expose equivalent to REST operations
