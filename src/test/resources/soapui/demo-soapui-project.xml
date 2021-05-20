@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="b671fb83-a6f5-4e00-abb4-d70bf9beec2d" activeEnvironment="Default" name="demo" resourceRoot="" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="3778742d-5ed6-4f32-9b51-9db04273c2e7" wsaVersion="NONE" name="demoBinding" type="wsdl" bindingName="{http://com.heilig.demo/wsdl/demo.wsdl}demoBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Projets/SpringBoot/demo/src/main/resources/wsdl/demo.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\D:\Projets\SpringBoot\demo\src\main\resources\wsdl\demo.wsdl"><con:part><con:url>file:\D:\Projets\SpringBoot\demo\src\main\resources\wsdl\demo.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="demoService" targetNamespace="http://com.heilig.demo/wsdl/demo.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:schema="http://demo.heilig.com/xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://com.heilig.demo/wsdl/demo.wsdl">
+  <!--Import the xsd-->
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://demo.heilig.com/xsd" schemaLocation="../xsd/demo.xsd"/>
+    </schema>
+  </wsdl:types>
+  <!--Declare messages-->
+  <wsdl:message name="retrieveUsersRequest">
+    <wsdl:part name="filter" element="schema:userDtoFilters"/>
+  </wsdl:message>
+  <wsdl:message name="retrieveUsersResponse">
+    <wsdl:part name="user" element="schema:userDto"/>
+  </wsdl:message>
+  <wsdl:message name="createUserRequest">
+    <wsdl:part name="user" element="schema:userDto"/>
+  </wsdl:message>
+  <wsdl:message name="createUserResponse">
+    <wsdl:part name="user" element="schema:userDto"/>
+  </wsdl:message>
+  <!--Set port types-->
+  <wsdl:portType name="demoPortType">
+    <wsdl:operation name="retrieveUsers">
+      <wsdl:input name="retrieveUsersRequest" message="tns:retrieveUsersRequest"/>
+      <wsdl:output name="retrieveUsersResponse" message="tns:retrieveUsersResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <wsdl:input name="createUserRequest" message="tns:createUserRequest"/>
+      <wsdl:output name="createUserResponse" message="tns:createUserResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <!--Set bindings-->
+  <wsdl:binding name="demoBinding" type="tns:demoPortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="retrieveUsers">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="retrieveUsersRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="retrieveUsersResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="createUserRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createUserResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <!--Set Service-->
+  <wsdl:service name="demoService">
+    <wsdl:port name="demoPortType" binding="tns:demoBinding">
+      <wsdlsoap:address location="http://localhost:8080/soap/demoService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\D:\Projets\SpringBoot\demo\src\main\resources\xsd\demo.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://demo.heilig.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="userDto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long" minOccurs="0"/>
+        <xs:element name="lastname" type="xs:string"/>
+        <xs:element name="firstname" type="xs:string"/>
+        <xs:element name="birthDate" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="userDtoFilters">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long" minOccurs="0"/>
+        <xs:element name="lastname" type="xs:string" minOccurs="0"/>
+        <xs:element name="firstname" type="xs:string" minOccurs="0"/>
+        <xs:element name="birthDate" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/soap/demoService</con:endpoint></con:endpoints><con:operation id="ae9b97de-b6a5-4d1d-8603-17e9e4f32288" isOneWay="false" action="" name="createUser" bindingOperationName="createUser" type="Request-Response" outputName="createUserResponse" inputName="createUserRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b127f81c-bee4-4b1e-86ba-f20f1517d0d1" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap/demoService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://demo.heilig.com/xsd">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <xsd:userDto>\r
+         <!--Optional:-->\r
+         <id>?</id>\r
+         <lastname>?</lastname>\r
+         <firstname>?</firstname>\r
+         <birthDate>?</birthDate>\r
+      </xsd:userDto>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://com.heilig.demo/wsdl/demo.wsdl/demoPortType/createUserRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="a2316dc4-86b4-47c9-b736-81ab4e21ba50" isOneWay="false" action="" name="retrieveUsers" bindingOperationName="retrieveUsers" type="Request-Response" outputName="retrieveUsersResponse" inputName="retrieveUsersRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="77372d0a-5870-4525-b09b-595d8ea0549e" name="without filters"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap/demo</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+xmlns:xsd="http://demo.heilig.com/xsd" xmlns:ns="http://com.heilig.demo/wsdl/demo-user.wsdl">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ns:retrieveUsers>
+
+      </ns:retrieveUsers>
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://com.heilig.demo/wsdl/demo.wsdl/demoPortType/retrieveUsersRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="2416270f-a5a8-4010-a0c3-b76a1fb997c1" name="with filters"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap/demo</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+xmlns:xsd="http://demo.heilig.com/xsd" xmlns:ns="http://com.heilig.demo/wsdl/demo-user.wsdl">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ns:retrieveUsers>
+<!--Optional:-->
+         <id>?</id>
+         <!--Optional:-->
+         <lastname>?</lastname>
+         <!--Optional:-->
+         <firstname>?</firstname>
+         <!--Optional:-->
+         <birthDate>?</birthDate>
+
+      </ns:retrieveUsers>
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://com.heilig.demo/wsdl/demo.wsdl/demoPortType/retrieveUsersRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
