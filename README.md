@@ -26,3 +26,5 @@ That branch contains a project that demonstrates:
 - Mapstruct: to map DTO <-> entity
 - REST: Expose some operations
 - SOAP: Expose equivalent to REST operations
+- AOP: Creation of a custom anotation
+- Lombok
