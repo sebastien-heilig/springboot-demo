@@ -10,21 +10,22 @@ import java.util.Objects;
  */
 public class DateUtils {
 
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
+  public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
 
-    // Hide constructor - Util class
-    private DateUtils(){}
+  // Hide constructor - Util class
+  private DateUtils() {
+  }
 
-    public static String format(LocalDate localDate){
+  public static String format(LocalDate localDate) {
 
-        Objects.requireNonNull(localDate, "The given date cannot be null!");
-        return localDate.format(FORMATTER);
-    }
+    Objects.requireNonNull(localDate, "The given date cannot be null!");
+    return localDate.format(FORMATTER);
+  }
 
-    public static LocalDate parse(String localDateString){
+  public static LocalDate parse(String localDateString) {
 
-        Objects.requireNonNull(localDateString, "The given String cannot be null!");
-        return LocalDate.parse(localDateString);
-    }
+    Objects.requireNonNull(localDateString, "The given String cannot be null!");
+    return LocalDate.parse(localDateString);
+  }
 
 }

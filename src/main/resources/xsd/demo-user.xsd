@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://demo.heilig.com/xsd" xmlns:tns="http://demo.heilig.com/xsd">
+<xs:schema xmlns:tns="http://demo.heilig.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://demo.heilig.com/xsd">
 
-    <xs:complexType name="userDto">
-        <xs:sequence>
-            <xs:element name="id" type="xs:long" minOccurs="0"/>
-            <xs:element name="lastname" type="xs:string"/>
-            <xs:element name="firstname" type="xs:string"/>
-            <xs:element name="birthDate" type="xs:string"/>
-            <xs:element name="age" type="xs:int" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="userDtoList">
-        <xs:sequence>
-            <xs:element name="usersDto" type="tns:userDto" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
-        </xs:sequence>
-    </xs:complexType>
+  <xs:complexType name="userDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element name="lastname" type="xs:string"/>
+      <xs:element name="firstname" type="xs:string"/>
+      <xs:element name="birthDate" type="xs:string"/>
+      <xs:element minOccurs="0" name="age" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="userDtoList">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="usersDto" nillable="true" type="tns:userDto"/>
+    </xs:sequence>
+  </xs:complexType>
 
-    <xs:complexType name="userDtoFilters">
-        <xs:sequence>
-            <xs:element name="id" type="xs:long" minOccurs="0"/>
-            <xs:element name="lastname" type="xs:string" minOccurs="0"/>
-            <xs:element name="firstname" type="xs:string" minOccurs="0"/>
-            <xs:element name="birthDate" type="xs:string" minOccurs="0"/>
-            <xs:element name="age" type="xs:int" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+  <xs:complexType name="userDtoFilters">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="lastname" type="xs:string"/>
+      <xs:element minOccurs="0" name="firstname" type="xs:string"/>
+      <xs:element minOccurs="0" name="birthDate" type="xs:string"/>
+      <xs:element minOccurs="0" name="age" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
 
-    <xs:element name="userDto" type="tns:userDto"/>
-    <xs:element name="usersDto" type="tns:userDtoList"/>
+  <xs:element name="userDto" type="tns:userDto"/>
+  <xs:element name="usersDto" type="tns:userDtoList"/>
 
-    <xs:element name="userDtoFilters" type="tns:userDtoFilters"/>
+  <xs:element name="userDtoFilters" type="tns:userDtoFilters"/>
 </xs:schema>

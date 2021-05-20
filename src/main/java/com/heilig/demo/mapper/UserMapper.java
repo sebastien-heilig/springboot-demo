@@ -3,11 +3,14 @@ package com.heilig.demo.mapper;
 import com.heilig.demo.model.User;
 import com.heilig.demo.util.DateUtils;
 import com.heilig.demo.xsd.UserDto;
-import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
-
 import java.time.LocalDate;
 import java.time.Period;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author sebastien.heilig
@@ -16,28 +19,29 @@ import java.time.Period;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+  UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "parseDate")
-    User map(UserDto dto);
-    @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "formatDate")
-    UserDto map(User model);
+  @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "parseDate")
+  User map(UserDto dto);
 
-    @AfterMapping
-    default void afterMapping(@MappingTarget UserDto userDto, User model){
+  @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "formatDate")
+  UserDto map(User model);
 
-        userDto.setAge(Period.between(model.getBirthDate(), LocalDate.now()).getYears());
-    }
+  @AfterMapping
+  default void afterMapping(@MappingTarget UserDto userDto, User model) {
 
-    @Named("parseDate")
-    default LocalDate parseDate(String localDateString){
+    userDto.setAge(Period.between(model.getBirthDate(), LocalDate.now()).getYears());
+  }
 
-        return DateUtils.parse(localDateString);
-    }
+  @Named("parseDate")
+  default LocalDate parseDate(String localDateString) {
 
-    @Named("formatDate")
-    default String formatDate(LocalDate localDate){
+    return DateUtils.parse(localDateString);
+  }
 
-        return DateUtils.format(localDate);
-    }
+  @Named("formatDate")
+  default String formatDate(LocalDate localDate) {
+
+    return DateUtils.format(localDate);
+  }
 }

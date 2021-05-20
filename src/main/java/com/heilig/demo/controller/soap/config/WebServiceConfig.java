@@ -19,21 +19,21 @@ import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
 
-    public static final String NAMESPACE = "http://com.heilig.demo/wsdl/demo-user.wsdl";
+  public static final String NAMESPACE = "http://com.heilig.demo/wsdl/demo-user.wsdl";
 
-    @Bean
-    public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext){
+  @Bean
+  public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
 
-        var servlet = new MessageDispatcherServlet();
-        servlet.setApplicationContext(applicationContext);
-        return new ServletRegistrationBean(servlet, "/soap/*");
-    }
+    var servlet = new MessageDispatcherServlet();
+    servlet.setApplicationContext(applicationContext);
+    return new ServletRegistrationBean(servlet, "/soap/*");
+  }
 
-    @Bean(name = "demo")
-    public Wsdl11Definition defaultWsdl11Definition() {
-        var definition = new SimpleWsdl11Definition();
-        definition.setWsdl(new ClassPathResource("wsdl/demo-user.wsdl"));
-        return definition;
-    }
+  @Bean(name = "demo")
+  public Wsdl11Definition defaultWsdl11Definition() {
+    var definition = new SimpleWsdl11Definition();
+    definition.setWsdl(new ClassPathResource("wsdl/demo-user.wsdl"));
+    return definition;
+  }
 
 }

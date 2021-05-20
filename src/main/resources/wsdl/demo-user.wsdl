@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="demoUserService"
-                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:schema="demo-user.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12"
-                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://com.heilig.demo/wsdl/demo-user.wsdl"
-                  xmlns:tns="http://com.heilig.demo/wsdl/demo-user.wsdl" xmlns:jxb="http://java.sun.com/xml/jaxb" jxb:version="2.0">
+<wsdl:definitions xmlns:jxb="http://java.sun.com/xml/jaxb"
+  xmlns:schema="demo-user.xsd" xmlns:tns="http://com.heilig.demo/wsdl/demo-user.wsdl"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+  name="demoUserService" targetNamespace="http://com.heilig.demo/wsdl/demo-user.wsdl" jxb:version="2.0">
 
-    <!-- Import the xsd -->
-    <wsdl:types>
-        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:jxb="http://java.sun.com/xml/jaxb" jxb:version="2.0">
-            <import namespace="http://demo.heilig.com/xsd" schemaLocation="../xsd/demo-user.xsd" />
-        </schema>
-    </wsdl:types>
-    <!-- Declare messages -->
-    <wsdl:message name="retrieveUsersRequest">
-        <wsdl:part name="filter" element="schema:userDtoFilters"/>
-    </wsdl:message>
-    <wsdl:message name="retrieveUsersResponse">
-        <wsdl:part name="users" element="schema:userDtoList"/>
-    </wsdl:message>
-    <wsdl:message name="createUserRequest">
-        <wsdl:part name="user" element="schema:userDto"/>
-    </wsdl:message>
-    <wsdl:message name="createUserResponse">
-        <wsdl:part name="user" element="schema:userDto"/>
-    </wsdl:message>
-    <!-- Set port types -->
-    <wsdl:portType name="demoPortType">
-        <wsdl:operation name="retrieveUsers">
-            <wsdl:input name="retrieveUsersRequest" message="tns:retrieveUsersRequest"/>
-            <wsdl:output name="retrieveUsersResponse" message="tns:retrieveUsersResponse"/>
-        </wsdl:operation>
-        <wsdl:operation name="createUser">
-            <wsdl:input name="createUserRequest" message="tns:createUserRequest"/>
-            <wsdl:output name="createUserResponse" message="tns:createUserResponse"/>
-        </wsdl:operation>
-    </wsdl:portType>
-    <!-- Set bindings -->
-    <wsdl:binding name="demoBinding" type="tns:demoPortType">
-        <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="retrieveUsers">
-            <wsdlsoap:operation soapAction=""/>
-            <wsdl:input name="retrieveUsersRequest">
-                <wsdlsoap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="retrieveUsersResponse">
-                <wsdlsoap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="createUser">
-            <wsdlsoap:operation soapAction=""/>
-            <wsdl:input name="createUserRequest">
-                <wsdlsoap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="createUserResponse">
-                <wsdlsoap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-    </wsdl:binding>
-    <!-- Set Service -->
-    <wsdl:service name="demoService">
-        <wsdl:port name="demoPortType" binding="tns:demoBinding">
-            <wsdlsoap:address location="http://localhost:8080/soap/userService"/>
-        </wsdl:port>
-    </wsdl:service>
+  <!-- Import the xsd -->
+  <wsdl:binding name="demoBinding" type="tns:demoPortType">
+    <wsdl:operation name="retrieveUsers">
+      <wsdl:input name="retrieveUsersRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="retrieveUsersResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdlsoap:operation soapAction=""/>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <wsdl:input name="createUserRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createUserResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdlsoap:operation soapAction=""/>
+    </wsdl:operation>
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  </wsdl:binding>
+  <!-- Declare messages -->
+  <wsdl:message name="retrieveUsersResponse">
+    <wsdl:part element="schema:userDtoList" name="users"/>
+  </wsdl:message>
+  <wsdl:message name="createUserRequest">
+    <wsdl:part element="schema:userDto" name="user"/>
+  </wsdl:message>
+  <wsdl:message name="createUserResponse">
+    <wsdl:part element="schema:userDto" name="user"/>
+  </wsdl:message>
+  <wsdl:message name="retrieveUsersRequest">
+    <wsdl:part element="schema:userDtoFilters" name="filter"/>
+  </wsdl:message>
+  <!-- Set port types -->
+  <wsdl:portType name="demoPortType">
+    <wsdl:operation name="retrieveUsers">
+      <wsdl:input message="tns:retrieveUsersRequest" name="retrieveUsersRequest"/>
+      <wsdl:output message="tns:retrieveUsersResponse" name="retrieveUsersResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <wsdl:input message="tns:createUserRequest" name="createUserRequest"/>
+      <wsdl:output message="tns:createUserResponse" name="createUserResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <!-- Set bindings -->
+  <wsdl:service name="demoService">
+    <wsdl:port binding="tns:demoBinding" name="demoPortType">
+      <wsdlsoap:address location="http://localhost:8080/soap/userService"/>
+    </wsdl:port>
+  </wsdl:service>
+  <!-- Set Service -->
+  <wsdl:types>
+    <schema xmlns:jxb="http://java.sun.com/xml/jaxb" xmlns="http://www.w3.org/2001/XMLSchema" jxb:version="2.0">
+      <import namespace="http://demo.heilig.com/xsd" schemaLocation="../xsd/demo-user.xsd"/>
+    </schema>
+  </wsdl:types>
 </wsdl:definitions>

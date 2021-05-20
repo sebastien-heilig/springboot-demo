@@ -1,9 +1,14 @@
 package com.heilig.demo.controller.soap;
 
+import static com.heilig.demo.controller.soap.config.WebServiceConfig.NAMESPACE;
+
 import com.heilig.demo.annotation.LogExecutionTime;
 import com.heilig.demo.controller.api.UserApi;
 import com.heilig.demo.service.UserService;
+import com.heilig.demo.xsd.ObjectFactory;
 import com.heilig.demo.xsd.UserDto;
+import javax.annotation.PostConstruct;
+import javax.xml.bind.JAXBElement;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +17,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-
-import javax.xml.bind.JAXBElement;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.heilig.demo.controller.soap.config.WebServiceConfig.NAMESPACE;
 
 /**
  * @author sebastien.heilig
@@ -28,29 +27,31 @@ import static com.heilig.demo.controller.soap.config.WebServiceConfig.NAMESPACE;
 @Endpoint
 public class UserSoapController implements UserApi {
 
-    @NonNull
-    private final UserService userService;
+  @NonNull
+  private final UserService userService;
+  private ObjectFactory objectFactory;
 
+  @PostConstruct
+  private void initObjectFactory() {
 
-    @Override
-    public List<UserDto> retrieveUsers() {
+    this.objectFactory = new ObjectFactory();
+  }
 
-        return userService.retrieveUsers().stream().map(this::map).collect(Collectors.toList());
-    }
+  @LogExecutionTime
+  @PayloadRoot(namespace = NAMESPACE, localPart = "createUser")
+  @ResponsePayload
+  public JAXBElement<com.heilig.demo.xsd.UserDto> createUser(@RequestPayload UserDto userDto) {
 
-    @Override
-    public UserDto createUser(UserDto userDto) {
-        return null;
-    }
+    return objectFactory.createUserDto(createUser(userService, userDto));
+  }
 
-    @LogExecutionTime
-    @PayloadRoot(namespace = NAMESPACE, localPart = "retrieveUsers")
-    @ResponsePayload
-    public JAXBElement<com.heilig.demo.xsd.UserDtoList> retrieveUsers(@RequestPayload com.heilig.demo.xsd.UserDtoFilters filters) {
+  @LogExecutionTime
+  @PayloadRoot(namespace = NAMESPACE, localPart = "retrieveUsers")
+  @ResponsePayload
+  public JAXBElement<com.heilig.demo.xsd.UserDtoList> retrieveUsers(@RequestPayload com.heilig.demo.xsd.UserDtoFilters filters) {
 
-        var objectFactory = new com.heilig.demo.xsd.ObjectFactory();
-        var userDtoList = new com.heilig.demo.xsd.UserDtoList();
-        userDtoList.getUsersDto().addAll(retrieveUsers());
-        return objectFactory.createUsersDto(userDtoList);
-    }
+    var userDtoList = new com.heilig.demo.xsd.UserDtoList();
+    userDtoList.getUsersDto().addAll(retrieveUsers(userService));
+    return objectFactory.createUsersDto(userDtoList);
+  }
 }
